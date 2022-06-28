@@ -7,7 +7,7 @@ export class Web3Factory {
   constructor() {}
 
   /**
-   * Build web3 genertic interfaces
+   * Build web3 generic interfaces
    */
   public buildWeb3Interfaces(abiName: string): string {
     return `import BN from "bn.js";
@@ -73,19 +73,19 @@ export class Web3Factory {
    * @param abiItems The abi json
    */
   public buildEventInterfaceProperties(abiItems: AbiItem[]): string {
-    let eventPropeties = '';
+    let eventProperties = '';
     for (let i = 0; i < abiItems.length; i++) {
       if (abiItems[i].type === AbiItemType.event) {
         let filtersProperties = '{';
         for (let a = 0; a < abiItems[i].inputs!.length; a++) {
           if (abiItems[i].inputs![a].indexed === true) {
-            const paramterType = TypeScriptHelpers.getSolidityInputTsType(
+            const parameterType = TypeScriptHelpers.getSolidityInputTsType(
               abiItems[i].inputs![a],
               Provider.web3
             );
             filtersProperties += `${
               abiItems[i].inputs![a].name
-            }?: ${paramterType} | ${paramterType}[],`;
+            }?: ${parameterType} | ${parameterType}[],`;
           }
         }
 
@@ -101,11 +101,11 @@ export class Web3Factory {
          `;
 
         const eventInterfaceName = `${abiItems[i].name}EventEmittedResponse`;
-        eventPropeties += `${abiItems[i].name}(parameters: ${parameters}, callback?: (error: Error, event: EventData<${eventInterfaceName}>) => void): EventResponse<${eventInterfaceName}>;`;
+        eventProperties += `${abiItems[i].name}(parameters: ${parameters}, callback?: (error: Error, event: EventData<${eventInterfaceName}>) => void): EventResponse<${eventInterfaceName}>;`;
       }
     }
 
-    return eventPropeties;
+    return eventProperties;
   }
 
   /**

@@ -48,7 +48,7 @@ export = {
           return;
       }
     } catch (error) {
-      Logger.error(error.message);
+      Logger.error((error as Error).message);
       return;
     }
   },

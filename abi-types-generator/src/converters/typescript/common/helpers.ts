@@ -141,7 +141,7 @@ export default class TypeScriptHelpers {
       return interfaceName;
     }
 
-    throw new Error(`${abiInput.type} is not valid solidty type`);
+    throw new Error(`${abiInput.type} is not valid solidity type`);
   }
 
   /**
@@ -229,7 +229,7 @@ export default class TypeScriptHelpers {
       return 'string';
     }
 
-    throw new Error(`${abiOutput.type} is not valid solidty type 1`);
+    throw new Error(`${abiOutput.type} is not valid solidity type 1`);
   }
 
   /**

@@ -364,7 +364,7 @@ describe('TypeScriptHelpers', () => {
             'blah' as any,
             Provider.ethers
           );
-        }).toThrowError('blah is not valid solidty type');
+        }).toThrowError('blah is not valid solidity type');
       });
     });
 
@@ -728,7 +728,7 @@ describe('TypeScriptHelpers', () => {
             'blah' as any,
             Provider.web3
           );
-        }).toThrowError('blah is not valid solidty type');
+        }).toThrowError('blah is not valid solidity type');
       });
     });
   });
@@ -1097,7 +1097,7 @@ describe('TypeScriptHelpers', () => {
             { type: 'blah' } as AbiOutput,
             Provider.ethers
           );
-        }).toThrowError('blah is not valid solidty type');
+        }).toThrowError('blah is not valid solidity type');
       });
     });
 
@@ -1464,7 +1464,7 @@ describe('TypeScriptHelpers', () => {
             { type: 'blah' } as AbiOutput,
             Provider.web3
           );
-        }).toThrowError('blah is not valid solidty type');
+        }).toThrowError('blah is not valid solidity type');
       });
     });
   });
@@ -1507,7 +1507,7 @@ describe('TypeScriptHelpers', () => {
       ).toEqual('export type TestEvents = "test" | "test2";');
     });
 
-    it('should return correct build tupe if no events exist', () => {
+    it('should return correct build type if no events exist', () => {
       expect(TypeScriptHelpers.buildType('TestEvents', [])).toEqual(
         'export type TestEvents = undefined;'
       );
