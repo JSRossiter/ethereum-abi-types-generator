@@ -2,15 +2,17 @@ import {
   BlockTag,
   Listener,
   Provider,
+  TransactionReceipt,
   TransactionRequest,
   TransactionResponse,
-} from 'ethers/providers';
+} from '@ethersproject/abstract-provider';
 import {
   BigNumber,
   BigNumberish,
   EventFilter,
   PopulatedTransaction,
   Signer,
+  Transaction,
 } from 'ethersv5';
 import {
   AbiCoder,
@@ -240,3 +242,22 @@ interface EthersContractV5<
     TEventType
   >;
 }
+
+export interface TransactionExceptionError extends Error {
+  code: 'CALL_EXCEPTION';
+  transaction: Transaction;
+  transactionHash: string;
+  receipt: TransactionReceipt;
+}
+export interface TransactionReplacedError extends Error {
+  code: 'TRANSACTION_REPLACED';
+  hash: string;
+  reason: 'repriced' | 'cancelled' | 'replaced';
+  cancelled: boolean;
+  replacement: TransactionResponse;
+  receipt: TransactionReceipt;
+}
+
+export type TransactionResponseError =
+  | TransactionExceptionError
+  | TransactionReplacedError;
