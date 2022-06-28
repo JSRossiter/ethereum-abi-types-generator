@@ -1,12 +1,12 @@
-import BN from 'bn.js';
-import BigNumber from 'bignumber.js';
 import {
+  EventData,
+  EventResponse,
   PromiEvent,
   TransactionReceipt,
-  EventResponse,
-  EventData,
   Web3ContractContext,
-} from 'ethereum-abi-types-generator';
+} from '@jsrossiter/ethereum-abi-types-generator';
+import BigNumber from 'bignumber.js';
+import BN from 'bn.js';
 
 export interface CallOptions {
   from?: string;

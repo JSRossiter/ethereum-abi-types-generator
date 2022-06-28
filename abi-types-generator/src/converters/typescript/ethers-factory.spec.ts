@@ -23,7 +23,7 @@ describe('EthersFactory', () => {
         Helpers.removeAllWhiteSpace(`
           import { ContractTransaction } from "ethers";
           import { Arrayish, BigNumber, BigNumberish, Interface } from "ethers/utils";
-          import { EthersContractContext } from "ethereum-abi-types-generator";
+          import { EthersContractContext } from "@jsrossiter/ethereum-abi-types-generator";
 
           export type ContractContext = EthersContractContext<
             TestAbi,
@@ -91,7 +91,7 @@ describe('EthersFactory', () => {
                     PayableOverrides,
                     Overrides,
                     CallOverrides } from "ethers";
-           import { EthersContractContextV5 } from "ethereum-abi-types-generator";
+           import { EthersContractContextV5 } from "@jsrossiter/ethereum-abi-types-generator";
 
           export type TestAbiContractContext = EthersContractContextV5<
             TestAbi,

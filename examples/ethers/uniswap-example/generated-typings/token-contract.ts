@@ -1,6 +1,6 @@
+import { EthersContractContext } from '@jsrossiter/ethereum-abi-types-generator';
 import { ContractTransaction } from 'ethers';
-import { Arrayish, BigNumber, BigNumberish, Interface } from 'ethers/utils';
-import { EthersContractContext } from 'ethereum-abi-types-generator';
+import { Arrayish, BigNumber, BigNumberish } from 'ethers/utils';
 
 export type ContractContext = EthersContractContext<
   TokenContract,

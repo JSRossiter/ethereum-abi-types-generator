@@ -79,7 +79,7 @@ export class EthersFactory {
         return `
           import { ContractTransaction } from "ethers";
           import { Arrayish, BigNumber, BigNumberish, Interface } from "ethers/utils";
-          import { EthersContractContext } from "ethereum-abi-types-generator";
+          import { EthersContractContext } from "@jsrossiter/ethereum-abi-types-generator";
 
           export type ContractContext = EthersContractContext<
             ${abiName},
@@ -98,7 +98,7 @@ export class EthersFactory {
                     PayableOverrides,
                     Overrides,
                     CallOverrides } from "ethers";
-           import { EthersContractContextV5 } from "ethereum-abi-types-generator";
+           import { EthersContractContextV5 } from "@jsrossiter/ethereum-abi-types-generator";
 
            export type ${abiName}ContractContext = EthersContractContextV5<
             ${abiName},

@@ -1,4 +1,4 @@
-import { EthersContractContextV5 } from 'ethereum-abi-types-generator';
+import { EthersContractContextV5 } from '@jsrossiter/ethereum-abi-types-generator';
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethersv5';
 
 export type ContractContext = EthersContractContextV5<
