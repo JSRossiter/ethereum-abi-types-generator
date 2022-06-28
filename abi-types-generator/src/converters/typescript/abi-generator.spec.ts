@@ -217,256 +217,7 @@ describe('AbiGenerator', () => {
       callSuccessAbiGeneratorInstance();
 
       expect(writeFileSyncSpy.calls.mostRecent().args[0]).not.toBeUndefined();
-      expect(
-        Helpers.removeAllWhiteSpace(writeFileSyncSpy.calls.mostRecent().args[1])
-      ).toEqual(
-        Helpers.removeAllWhiteSpace(
-          prettierFormat(`import BN from 'bn.js';import BigNumber from'bignumber.js';
-    import {
-      PromiEvent,
-      TransactionReceipt,
-      EventResponse,
-      EventData,
-      Web3ContractContext,
-    } from 'ethereum-abi-types-generator';
-    export interface CallOptions {
-      from?: string;
-      gasPrice?: string;
-      gas?: number;
-    }
-    export interface SendOptions {
-      from: string;
-      value?: number | string | BN |BigNumber;
-      gasPrice?: string;
-      gas?: number;
-    }
-    export interface EstimateGasOptions {
-      from?: string;
-      value?: number | string | BN |BigNumber;
-      gas?: number;
-    }
-    export interface MethodPayableReturnContext {
-      send(options: SendOptions): PromiEvent<TransactionReceipt>;
-      send(
-        options: SendOptions,
-        callback: (error: Error, result: any) => void
-      ): PromiEvent<TransactionReceipt>;
-      estimateGas(options: EstimateGasOptions): Promise<number>;
-      estimateGas(
-        options: EstimateGasOptions,
-        callback: (error: Error, result: any) => void
-      ): Promise<number>;
-      encodeABI(): string;
-    }
-    export interface MethodConstantReturnContext<TCallReturn> {
-      call(): Promise<TCallReturn>;
-      call(options: CallOptions): Promise<TCallReturn>;
-      call(
-        options: CallOptions,
-        callback: (error: Error, result: TCallReturn) => void
-      ): Promise<TCallReturn>;
-      encodeABI():string;
-    }
-    export interface MethodReturnContext extends MethodPayableReturnContext {}
-    export type ContractContext = Web3ContractContext<
-      Abi,
-      AbiMethodNames,
-      AbiEventsContext,
-      AbiEvents
-    >;
-    export type AbiEvents = 'Event1' | 'Event2';
-    export interface AbiEventsContext {
-      Event1(
-        parameters: {
-          filter?: {
-            token?: string | string[];
-            exchange?: string | string[];
-            _value?: string | string[];
-          };
-          fromBlock?: number;
-          toBlock?: 'latest' | number;
-          topics?: string[];
-        },
-        callback?: (error: Error, event: EventData) => void
-      ): EventResponse;
-      Event2(
-        parameters: {
-          filter?: { _owner?: string | string[]; _spender?: string | string[] };
-          fromBlock?: number;
-          toBlock?: 'latest' | number;
-          topics?: string[];
-        },
-        callback?: (error: Error, event: EventData) => void
-      ): EventResponse;
-    }
-    export type AbiMethodNames =
-      | 'tupleInputOnly'
-      | 'tupleInputAndOutput'
-      | 'tupleNoInputNames'
-      | 'tupleWithParametersNames'
-      | 'byteArrayInputExample'
-      | 'int8ReturnExample'
-      | 'int256ReturnExample'
-      | 'easyExample'
-      | 'new'
-      | 'getCars';
-    export interface Event1EventEmittedResponse {
-      token:string;
-      exchange:string;
-      user:string;
-      _value:string;
-    }
-    export interface Event2EventEmittedResponse {
-     _owner:string;
-     _spender:string;
-     _value:string
-    }
-    export interface TupleInputOnlyRequest {
-      address: string;
-      timestamps: [string | number, string | number, string | number];
-    }
-    export interface TupleInputAndOutputResponse {
-      affiliate: string;
-      offerID: string;
-      creationTime: string;
-      timestamp: string;
-      timestamps: [string, string, string, string, string, string];
-    }
-    export interface TupleNoInputNamesResponse {
-      affiliate: string;
-      offerID: string;
-      creationTime: string;
-      timestamp: string;
-      timestamps: [string, string, string, string, string, string];
-    }
-    export interface TupleWithParametersNamesResponse {
-      affiliate: string;
-      offerID: string;
-      creationTime: string;
-      timestamp: string;
-      timestamps: [string, string, string, string, string, string];
-    }
-
-    export interface OwnedCarsResponse {
-      tokenId:string;
-      attachedComponents:[string,string,string,string];
-      detachedComponents:[string,string,string,string,string,string,string,string,string,string,string];
-      owner:string;
-      detachedComponentsCount:string;
-    }
-
-    export interface Abi {
-      /**
-       * Payable: false
-       * Constant: false
-       * StateMutability: nonpayable
-       * Type: function
-       * @param o Type: tuple, Indexed: false
-       */
-      tupleInputOnly(o: TupleInputOnlyRequest): MethodReturnContext;
-      /**
-       * Payable: false
-       * Constant: true
-       * StateMutability: view
-       * Type: function
-       * @param exchangeAddress Type: address, Indexed: false
-       * @param internalAddress Type: address, Indexed: false
-       */
-      tupleInputAndOutput(
-        exchangeAddress: string,
-        internalAddress: string
-      ): MethodConstantReturnContext<TupleInputAndOutputResponse>;
-      /**
-       * Payable: false
-       * Constant: true
-       * StateMutability: view
-       * Type: function
-       * @param parameter0 Type: address, Indexed: false
-       * @param parameter1 Type: address, Indexed: false
-       */
-      tupleNoInputNames(
-        parameter0: string,
-        parameter1: string
-      ): MethodConstantReturnContext<TupleNoInputNamesResponse>;
-      /**
-       * Payable: false
-       * Constant: true
-       * StateMutability: view
-       * Type: function
-       * @param address1 Type: address, Indexed: false
-       * @param address2 Type: address, Indexed: false
-       */
-      tupleWithParametersNames(
-        address1: string,
-        address2: string
-      ): MethodConstantReturnContext<TupleWithParametersNamesResponse>;
-      /**
-       * Payable: true
-       * Constant: false
-       * StateMutability: payable
-       * Type: function
-       * @param inputData Type: bytes32[2], Indexed: false
-       */
-      byteArrayInputExample(
-        inputData: [string | number[], string | number[], string | number[]]
-      ): MethodPayableReturnContext;
-      /**
-       * Payable: false
-       * Constant: true
-       * StateMutability: undefined
-       * Type: function
-       */
-      int8ReturnExample(): MethodConstantReturnContext<string>;
-      /**
-       * Payable: false
-       * Constant: true
-       * StateMutability: undefined
-       * Type: function
-       */
-      int256ReturnExample(): MethodConstantReturnContext<string>;
-      /**
-       * Payable: false
-       * Constant: true
-       * StateMutability: undefined
-       * Type: function
-       * @param valid Type: boolean, Indexed: false
-       * @param exchangeAddress Type: address, Indexed: false
-       * @param timestamp Type: uint8, Indexed: false
-       */
-      easyExample(
-        valid: boolean,
-        exchangeAddress: string,
-        timestamp: string | number
-      ): MethodConstantReturnContext<string>;
-      /**
-       * Payable: false
-       * Constant: false
-       * StateMutability: undefined
-       * Type: constructor
-       * @param _name Type: bytes32, Indexed: false
-       * @param _symbol Type: bytes32, Indexed: false
-       * @param _decimals Type: uint256, Indexed: false
-       * @param _supply Type: uint256, Indexed: false
-       */
-      'new'(
-        _name: string | number[],
-        _symbol: string | number[],
-        _decimals: string,
-        _supply: string
-      ): MethodReturnContext;
-
-      /**
-       *Payable:false
-       *Constant:true
-       *StateMutability:view
-       *Type:function
-       *@param ownerType:address, Indexed:false
-       */
-       getCars(owner:string): MethodConstantReturnContext<OwnedCarsResponse[]>;
-      }
-    `)
-        )
-      );
+      expect(writeFileSyncSpy.calls.mostRecent().args[1]).toMatchSnapshot();
       expect(writeFileSyncSpy.calls.mostRecent().args[2]).toEqual({
         mode: 493,
       });
@@ -712,12 +463,132 @@ describe('AbiGenerator', () => {
           stateMutability: 'view',
           type: 'function',
         },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: 'address',
+                      name: 'offerer',
+                      type: 'address',
+                    },
+                    {
+                      components: [
+                        {
+                          internalType: 'enum ItemType',
+                          name: 'itemType',
+                          type: 'uint8',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'endAmount',
+                          type: 'uint256',
+                        },
+                      ],
+                      internalType: 'struct OfferItem[]',
+                      name: 'offer',
+                      type: 'tuple[]',
+                    },
+                    {
+                      components: [
+                        {
+                          internalType: 'enum ItemType',
+                          name: 'itemType',
+                          type: 'uint8',
+                        },
+                        {
+                          internalType: 'address',
+                          name: 'token',
+                          type: 'address',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'identifierOrCriteria',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'startAmount',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'endAmount',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'address payable',
+                          name: 'recipient',
+                          type: 'address',
+                        },
+                      ],
+                      internalType: 'struct ConsiderationItem[]',
+                      name: 'consideration',
+                      type: 'tuple[]',
+                    },
+                    {
+                      internalType: 'uint256',
+                      name: 'totalOriginalConsiderationItems',
+                      type: 'uint256',
+                    },
+                  ],
+                  internalType: 'struct OrderParameters',
+                  name: 'parameters',
+                  type: 'tuple',
+                },
+                { internalType: 'uint120', name: 'numerator', type: 'uint120' },
+                {
+                  internalType: 'uint120',
+                  name: 'denominator',
+                  type: 'uint120',
+                },
+                { internalType: 'bytes', name: 'signature', type: 'bytes' },
+                { internalType: 'bytes', name: 'extraData', type: 'bytes' },
+              ],
+              internalType: 'struct AdvancedOrder',
+              name: 'advancedOrder',
+              type: 'tuple',
+            },
+            {
+              components: [
+                {
+                  internalType: 'uint256',
+                  name: 'orderIndex',
+                  type: 'uint256',
+                },
+                { internalType: 'enum Side', name: 'side', type: 'uint8' },
+                { internalType: 'uint256', name: 'index', type: 'uint256' },
+                {
+                  internalType: 'uint256',
+                  name: 'identifier',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'bytes32[]',
+                  name: 'criteriaProof',
+                  type: 'bytes32[]',
+                },
+              ],
+              internalType: 'struct CriteriaResolver[]',
+              name: 'criteriaResolvers',
+              type: 'tuple[]',
+            },
+          ],
+          name: 'deeplyNestedStructs',
+          outputs: [
+            { internalType: 'bool[]', name: 'availableOrders', type: 'bool[]' },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
       ]);
 
       expect(ethersBuildEventInterfacePropertiesSpy).toHaveBeenCalledTimes(0);
     });
 
-    it('should call _web3Factory.buildMethodReturnContext 10 times', () => {
+    it('should call _web3Factory.buildMethodReturnContext 11 times', () => {
       const abiGenertorOptionsClone = Helpers.deepClone(abiGenertorOptions);
       abiGenertorOptionsClone.callGenerate = false;
 
@@ -737,7 +608,7 @@ describe('AbiGenerator', () => {
 
       instance.generate();
 
-      expect(web3BuildMethodReturnContextSpy).toHaveBeenCalledTimes(10);
+      expect(web3BuildMethodReturnContextSpy).toHaveBeenCalledTimes(11);
       expect(ethersBuildMethodReturnContextSpy).toHaveBeenCalledTimes(0);
     });
   });
@@ -753,261 +624,7 @@ describe('AbiGenerator', () => {
       );
 
       expect(writeFileSyncSpy.calls.mostRecent().args[0]).not.toBeUndefined();
-      expect(
-        Helpers.removeAllWhiteSpace(writeFileSyncSpy.calls.mostRecent().args[1])
-      ).toEqual(
-        Helpers.removeAllWhiteSpace(
-          prettierFormat(`import { ContractTransaction } from 'ethers';
-            import { Arrayish, BigNumber, BigNumberish, Interface } from 'ethers/utils';
-            import { EthersContractContext } from 'ethereum-abi-types-generator';
-            export type ContractContext = EthersContractContext<
-              Abi,
-              AbiEventsContext,
-              AbiEvents
-            >;
-            export declare type EventFilter = {
-              address?: string;
-              topics?: Array<string>;
-              fromBlock?: string | number;
-              toBlock?: string | number;
-            };
-            export interface ContractTransactionOverrides {
-              /**
-               * The maximum units of gas for the transaction to use
-               */
-              gasLimit?: number;
-              /**
-               * The price (in wei) per unit of gas
-               */
-              gasPrice?: BigNumber | string | number | Promise<any>;
-              /**
-               * The nonce to use in the transaction
-               */
-              nonce?: number;
-              /**
-               * The amount to send with the transaction (i.e. msg.value)
-               */
-              value?: BigNumber | string | number | Promise<any>;
-              /**
-               * The chain ID (or network ID) to use
-               */
-              chainId?: number;
-            }
-            export interface ContractCallOverrides {
-              /**
-               * The address to execute the call as
-               */
-              from?: string;
-              /**
-               * The maximum units of gas for the transaction to use
-               */
-              gasLimit?: number;
-            }
-            export type AbiEvents = 'Event1' | 'Event2';
-            export interface AbiEventsContext {
-              Event1(...parameters: any): EventFilter;
-              Event2(...parameters: any): EventFilter;
-            }
-            export type AbiMethodNames =
-              | 'tupleInputOnly'
-              | 'tupleInputAndOutput'
-              | 'tupleNoInputNames'
-              | 'tupleWithParametersNames'
-              | 'byteArrayInputExample'
-              | 'int8ReturnExample'
-              | 'int256ReturnExample'
-              | 'easyExample'
-              | 'new'
-              | 'getCars';
-            export interface Event1EventEmittedResponse {
-                token:string;
-                exchange:string;
-                user:string;
-                _value:BigNumberish;
-            }
-            export interface Event2EventEmittedResponse {
-              _owner:string;
-              _spender:string;
-              _value:BigNumberish;
-            }
-            export interface TupleInputOnlyRequest {
-              address: string;
-              timestamps: [BigNumberish, BigNumberish, BigNumberish];
-            }
-            export interface TupleInputAndOutputResponse {
-              affiliate: string;
-              0: string;
-              offerID: string;
-              1: string;
-              creationTime: BigNumber;
-              2: BigNumber;
-              timestamp: number;
-              3: number;
-              timestamps: [number, number, number, number, number, number];
-              4: [number, number, number, number, number, number];
-              length: 5;
-            }
-            export interface TupleNoInputNamesResponse {
-              affiliate: string;
-              0: string;
-              offerID: string;
-              1: string;
-              creationTime: BigNumber;
-              2: BigNumber;
-              timestamp: number;
-              3: number;
-              timestamps: [number, number, number, number, number, number];
-              4: [number, number, number, number, number, number];
-              length: 5;
-            }
-            export interface TupleWithParametersNamesResponse {
-              affiliate: string;
-              0: string;
-              offerID: string;
-              1: string;
-              creationTime: BigNumber;
-              2: BigNumber;
-              timestamp: number;
-              3: number;
-              timestamps: [number, number, number, number, number, number];
-              4: [number, number, number, number, number, number];
-              length: 5;
-            }
-
-            export interface OwnedCarsResponse {
-              tokenId:BigNumber;
-              0:BigNumber;
-              attachedComponents:[BigNumber,BigNumber,BigNumber,BigNumber];
-              1:[BigNumber,BigNumber,BigNumber,BigNumber];
-              detachedComponents:[BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber];
-              2:[BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber];
-              owner:string;
-              3:string;
-              detachedComponentsCount:BigNumber;
-              4:BigNumber;
-            }
-
-            export interface Abi {
-              /**
-               * Payable: false
-               * Constant: false
-               * StateMutability: nonpayable
-               * Type: function
-               * @param o Type: tuple, Indexed: false
-               */
-              tupleInputOnly(
-                o: TupleInputOnlyRequest,
-                overrides?: ContractTransactionOverrides
-              ): Promise<ContractTransaction>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: view
-               * Type: function
-               * @param exchangeAddress Type: address, Indexed: false
-               * @param internalAddress Type: address, Indexed: false
-               */
-              tupleInputAndOutput(
-                exchangeAddress: string,
-                internalAddress: string,
-                overrides?: ContractCallOverrides
-              ): Promise<TupleInputAndOutputResponse>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: view
-               * Type: function
-               * @param parameter0 Type: address, Indexed: false
-               * @param parameter1 Type: address, Indexed: false
-               */
-              tupleNoInputNames(
-                parameter0: string,
-                parameter1: string,
-                overrides?: ContractCallOverrides
-              ): Promise<TupleNoInputNamesResponse>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: view
-               * Type: function
-               * @param address1 Type: address, Indexed: false
-               * @param address2 Type: address, Indexed: false
-               */
-              tupleWithParametersNames(
-                address1: string,
-                address2: string,
-                overrides?: ContractCallOverrides
-              ): Promise<TupleWithParametersNamesResponse>;
-              /**
-               * Payable: true
-               * Constant: false
-               * StateMutability: payable
-               * Type: function
-               * @param inputData Type: bytes32[2], Indexed: false
-               */
-              byteArrayInputExample(
-                inputData: [Arrayish, Arrayish, Arrayish],
-                overrides?: ContractTransactionOverrides
-              ): Promise<ContractTransaction>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: undefined
-               * Type: function
-               */
-              int8ReturnExample(overrides?: ContractCallOverrides): Promise<number>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: undefined
-               * Type: function
-               */
-              int256ReturnExample(overrides?: ContractCallOverrides): Promise<BigNumber>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: undefined
-               * Type: function
-               * @param valid Type: boolean, Indexed: false
-               * @param exchangeAddress Type: address, Indexed: false
-               * @param timestamp Type: uint8, Indexed: false
-               */
-              easyExample(
-                valid: boolean,
-                exchangeAddress: string,
-                timestamp: BigNumberish,
-                overrides?: ContractCallOverrides
-              ): Promise<BigNumber>;
-              /**
-               * Payable: false
-               * Constant: false
-               * StateMutability: undefined
-               * Type: constructor
-               * @param _name Type: bytes32, Indexed: false
-               * @param _symbol Type: bytes32, Indexed: false
-               * @param _decimals Type: uint256, Indexed: false
-               * @param _supply Type: uint256, Indexed: false
-               */
-              'new'(
-                _name: Arrayish,
-                _symbol: Arrayish,
-                _decimals: BigNumberish,
-                _supply: BigNumberish,
-                overrides?: ContractTransactionOverrides
-              ): Promise<ContractTransaction>;
-
-              /**
-               *Payable:false
-               *Constant:true
-               *StateMutability:view
-               *Type:function
-               * @param ownerType:address,Indexed:false
-               */
-               getCars(owner:string, overrides?:ContractCallOverrides):Promise<OwnedCarsResponse[]>;
-            }
-    `)
-        )
-      );
+      expect(writeFileSyncSpy.calls.mostRecent().args[1]).toMatchSnapshot();
       expect(writeFileSyncSpy.calls.mostRecent().args[2]).toEqual({
         mode: 493,
       });
@@ -1268,12 +885,132 @@ describe('AbiGenerator', () => {
           stateMutability: 'view',
           type: 'function',
         },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: 'address',
+                      name: 'offerer',
+                      type: 'address',
+                    },
+                    {
+                      components: [
+                        {
+                          internalType: 'enum ItemType',
+                          name: 'itemType',
+                          type: 'uint8',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'endAmount',
+                          type: 'uint256',
+                        },
+                      ],
+                      internalType: 'struct OfferItem[]',
+                      name: 'offer',
+                      type: 'tuple[]',
+                    },
+                    {
+                      components: [
+                        {
+                          internalType: 'enum ItemType',
+                          name: 'itemType',
+                          type: 'uint8',
+                        },
+                        {
+                          internalType: 'address',
+                          name: 'token',
+                          type: 'address',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'identifierOrCriteria',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'startAmount',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'endAmount',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'address payable',
+                          name: 'recipient',
+                          type: 'address',
+                        },
+                      ],
+                      internalType: 'struct ConsiderationItem[]',
+                      name: 'consideration',
+                      type: 'tuple[]',
+                    },
+                    {
+                      internalType: 'uint256',
+                      name: 'totalOriginalConsiderationItems',
+                      type: 'uint256',
+                    },
+                  ],
+                  internalType: 'struct OrderParameters',
+                  name: 'parameters',
+                  type: 'tuple',
+                },
+                { internalType: 'uint120', name: 'numerator', type: 'uint120' },
+                {
+                  internalType: 'uint120',
+                  name: 'denominator',
+                  type: 'uint120',
+                },
+                { internalType: 'bytes', name: 'signature', type: 'bytes' },
+                { internalType: 'bytes', name: 'extraData', type: 'bytes' },
+              ],
+              internalType: 'struct AdvancedOrder',
+              name: 'advancedOrder',
+              type: 'tuple',
+            },
+            {
+              components: [
+                {
+                  internalType: 'uint256',
+                  name: 'orderIndex',
+                  type: 'uint256',
+                },
+                { internalType: 'enum Side', name: 'side', type: 'uint8' },
+                { internalType: 'uint256', name: 'index', type: 'uint256' },
+                {
+                  internalType: 'uint256',
+                  name: 'identifier',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'bytes32[]',
+                  name: 'criteriaProof',
+                  type: 'bytes32[]',
+                },
+              ],
+              internalType: 'struct CriteriaResolver[]',
+              name: 'criteriaResolvers',
+              type: 'tuple[]',
+            },
+          ],
+          name: 'deeplyNestedStructs',
+          outputs: [
+            { internalType: 'bool[]', name: 'availableOrders', type: 'bool[]' },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
       ]);
 
       expect(web3BuildEventInterfacePropertiesSpy).toHaveBeenCalledTimes(0);
     });
 
-    it('should call _ethersFactory.buildMethodReturnContext 10 times', () => {
+    it('should call _ethersFactory.buildMethodReturnContext 11 times', () => {
       const abiGenertorOptionsClone = Helpers.deepClone(abiGenertorOptions);
       abiGenertorOptionsClone.callGenerate = false;
 
@@ -1299,7 +1036,7 @@ describe('AbiGenerator', () => {
 
       instance.generate();
 
-      expect(ethersBuildMethodReturnContextSpy).toHaveBeenCalledTimes(10);
+      expect(ethersBuildMethodReturnContextSpy).toHaveBeenCalledTimes(11);
       expect(web3BuildMethodReturnContextSpy).toHaveBeenCalledTimes(0);
     });
   });
@@ -1315,231 +1052,7 @@ describe('AbiGenerator', () => {
       );
 
       expect(writeFileSyncSpy.calls.mostRecent().args[0]).not.toBeUndefined();
-      expect(
-        Helpers.removeAllWhiteSpace(writeFileSyncSpy.calls.mostRecent().args[1])
-      ).toEqual(
-        Helpers.removeAllWhiteSpace(
-          prettierFormat(`import { ContractTransaction,
-                    ContractInterface,
-                    BytesLike as Arrayish,
-                    BigNumber,
-                    BigNumberish,
-                    EventFilter,
-                    PayableOverrides,
-                    Overrides,
-                    CallOverrides } from "ethers"
-            import { EthersContractContextV5 } from "ethereum-abi-types-generator";
-            export type ContractContext = EthersContractContextV5<
-              Abi,
-              AbiMethodNames,
-              AbiEventsContext,
-              AbiEvents
-            >;
-            export type AbiEvents = 'Event1' | 'Event2';
-            export interface AbiEventsContext {
-              Event1(...parameters: any): EventFilter;
-              Event2(...parameters: any): EventFilter;
-            }
-            export type AbiMethodNames =
-              | 'tupleInputOnly'
-              | 'tupleInputAndOutput'
-              | 'tupleNoInputNames'
-              | 'tupleWithParametersNames'
-              | 'byteArrayInputExample'
-              | 'int8ReturnExample'
-              | 'int256ReturnExample'
-              | 'easyExample'
-              | 'new'
-              | 'getCars';
-            export interface Event1EventEmittedResponse {
-                token:string;
-                exchange:string;
-                user:string;
-                _value:BigNumberish;
-            }
-            export interface Event2EventEmittedResponse {
-              _owner:string;
-              _spender:string;
-              _value:BigNumberish;
-            }
-            export interface TupleInputOnlyRequest {
-              address: string;
-              timestamps: [BigNumberish, BigNumberish, BigNumberish];
-            }
-            export interface TupleInputAndOutputResponse {
-              affiliate: string;
-              0: string;
-              offerID: string;
-              1: string;
-              creationTime: BigNumber;
-              2: BigNumber;
-              timestamp: number;
-              3: number;
-              timestamps: [number, number, number, number, number, number];
-              4: [number, number, number, number, number, number];
-              length: 5;
-            }
-            export interface TupleNoInputNamesResponse {
-              affiliate: string;
-              0: string;
-              offerID: string;
-              1: string;
-              creationTime: BigNumber;
-              2: BigNumber;
-              timestamp: number;
-              3: number;
-              timestamps: [number, number, number, number, number, number];
-              4: [number, number, number, number, number, number];
-              length: 5;
-            }
-            export interface TupleWithParametersNamesResponse {
-              affiliate: string;
-              0: string;
-              offerID: string;
-              1: string;
-              creationTime: BigNumber;
-              2: BigNumber;
-              timestamp: number;
-              3: number;
-              timestamps: [number, number, number, number, number, number];
-              4: [number, number, number, number, number, number];
-              length: 5;
-            }
-
-             export interface OwnedCarsResponse {
-              tokenId:BigNumber;
-              0:BigNumber;
-              attachedComponents:[BigNumber,BigNumber,BigNumber,BigNumber];
-              1:[BigNumber,BigNumber,BigNumber,BigNumber];
-              detachedComponents:[BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber];
-              2:[BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber,BigNumber];
-              owner:string;
-              3:string;
-              detachedComponentsCount:BigNumber;
-              4:BigNumber;
-            }
-
-            export interface Abi {
-              /**
-               * Payable: false
-               * Constant: false
-               * StateMutability: nonpayable
-               * Type: function
-               * @param o Type: tuple, Indexed: false
-               */
-              tupleInputOnly(
-                o: TupleInputOnlyRequest,
-                overrides?: Overrides
-              ): Promise<ContractTransaction>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: view
-               * Type: function
-               * @param exchangeAddress Type: address, Indexed: false
-               * @param internalAddress Type: address, Indexed: false
-               */
-              tupleInputAndOutput(
-                exchangeAddress: string,
-                internalAddress: string,
-                overrides?: CallOverrides
-              ): Promise<TupleInputAndOutputResponse>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: view
-               * Type: function
-               * @param parameter0 Type: address, Indexed: false
-               * @param parameter1 Type: address, Indexed: false
-               */
-              tupleNoInputNames(
-                parameter0: string,
-                parameter1: string,
-                overrides?: CallOverrides
-              ): Promise<TupleNoInputNamesResponse>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: view
-               * Type: function
-               * @param address1 Type: address, Indexed: false
-               * @param address2 Type: address, Indexed: false
-               */
-              tupleWithParametersNames(
-                address1: string,
-                address2: string,
-                overrides?: CallOverrides
-              ): Promise<TupleWithParametersNamesResponse>;
-              /**
-               * Payable: true
-               * Constant: false
-               * StateMutability: payable
-               * Type: function
-               * @param inputData Type: bytes32[2], Indexed: false
-               */
-              byteArrayInputExample(
-                inputData: [Arrayish, Arrayish, Arrayish],
-                overrides?: PayableOverrides
-              ): Promise<ContractTransaction>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: undefined
-               * Type: function
-               */
-              int8ReturnExample(overrides?: CallOverrides): Promise<number>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: undefined
-               * Type: function
-               */
-              int256ReturnExample(overrides?: CallOverrides): Promise<BigNumber>;
-              /**
-               * Payable: false
-               * Constant: true
-               * StateMutability: undefined
-               * Type: function
-               * @param valid Type: boolean, Indexed: false
-               * @param exchangeAddress Type: address, Indexed: false
-               * @param timestamp Type: uint8, Indexed: false
-               */
-              easyExample(
-                valid: boolean,
-                exchangeAddress: string,
-                timestamp: BigNumberish,
-                overrides?: CallOverrides
-              ): Promise<BigNumber>;
-              /**
-               * Payable: false
-               * Constant: false
-               * StateMutability: undefined
-               * Type: constructor
-               * @param _name Type: bytes32, Indexed: false
-               * @param _symbol Type: bytes32, Indexed: false
-               * @param _decimals Type: uint256, Indexed: false
-               * @param _supply Type: uint256, Indexed: false
-               */
-              'new'(
-                _name: Arrayish,
-                _symbol: Arrayish,
-                _decimals: BigNumberish,
-                _supply: BigNumberish,
-                overrides?: Overrides
-              ): Promise<ContractTransaction>;
-
-              /**
-               *Payable:false
-               *Constant:true
-               *StateMutability:view
-               *Type:function
-               * @param ownerType:address,Indexed:false
-               */
-               getCars(owner:string, overrides?:CallOverrides):Promise<OwnedCarsResponse[]>;
-            }
-    `)
-        )
-      );
+      expect(writeFileSyncSpy.calls.mostRecent().args[1]).toMatchSnapshot();
       expect(writeFileSyncSpy.calls.mostRecent().args[2]).toEqual({
         mode: 493,
       });
@@ -1800,12 +1313,132 @@ describe('AbiGenerator', () => {
           stateMutability: 'view',
           type: 'function',
         },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  components: [
+                    {
+                      internalType: 'address',
+                      name: 'offerer',
+                      type: 'address',
+                    },
+                    {
+                      components: [
+                        {
+                          internalType: 'enum ItemType',
+                          name: 'itemType',
+                          type: 'uint8',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'endAmount',
+                          type: 'uint256',
+                        },
+                      ],
+                      internalType: 'struct OfferItem[]',
+                      name: 'offer',
+                      type: 'tuple[]',
+                    },
+                    {
+                      components: [
+                        {
+                          internalType: 'enum ItemType',
+                          name: 'itemType',
+                          type: 'uint8',
+                        },
+                        {
+                          internalType: 'address',
+                          name: 'token',
+                          type: 'address',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'identifierOrCriteria',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'startAmount',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'uint256',
+                          name: 'endAmount',
+                          type: 'uint256',
+                        },
+                        {
+                          internalType: 'address payable',
+                          name: 'recipient',
+                          type: 'address',
+                        },
+                      ],
+                      internalType: 'struct ConsiderationItem[]',
+                      name: 'consideration',
+                      type: 'tuple[]',
+                    },
+                    {
+                      internalType: 'uint256',
+                      name: 'totalOriginalConsiderationItems',
+                      type: 'uint256',
+                    },
+                  ],
+                  internalType: 'struct OrderParameters',
+                  name: 'parameters',
+                  type: 'tuple',
+                },
+                { internalType: 'uint120', name: 'numerator', type: 'uint120' },
+                {
+                  internalType: 'uint120',
+                  name: 'denominator',
+                  type: 'uint120',
+                },
+                { internalType: 'bytes', name: 'signature', type: 'bytes' },
+                { internalType: 'bytes', name: 'extraData', type: 'bytes' },
+              ],
+              internalType: 'struct AdvancedOrder',
+              name: 'advancedOrder',
+              type: 'tuple',
+            },
+            {
+              components: [
+                {
+                  internalType: 'uint256',
+                  name: 'orderIndex',
+                  type: 'uint256',
+                },
+                { internalType: 'enum Side', name: 'side', type: 'uint8' },
+                { internalType: 'uint256', name: 'index', type: 'uint256' },
+                {
+                  internalType: 'uint256',
+                  name: 'identifier',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'bytes32[]',
+                  name: 'criteriaProof',
+                  type: 'bytes32[]',
+                },
+              ],
+              internalType: 'struct CriteriaResolver[]',
+              name: 'criteriaResolvers',
+              type: 'tuple[]',
+            },
+          ],
+          name: 'deeplyNestedStructs',
+          outputs: [
+            { internalType: 'bool[]', name: 'availableOrders', type: 'bool[]' },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
       ]);
 
       expect(web3BuildEventInterfacePropertiesSpy).toHaveBeenCalledTimes(0);
     });
 
-    it('should call _ethersFactory.buildMethodReturnContext 10 times', () => {
+    it('should call _ethersFactory.buildMethodReturnContext 11 times', () => {
       const abiGenertorOptionsClone = Helpers.deepClone(abiGenertorOptions);
       abiGenertorOptionsClone.callGenerate = false;
 
@@ -1831,7 +1464,7 @@ describe('AbiGenerator', () => {
 
       instance.generate();
 
-      expect(ethersBuildMethodReturnContextSpy).toHaveBeenCalledTimes(10);
+      expect(ethersBuildMethodReturnContextSpy).toHaveBeenCalledTimes(11);
       expect(web3BuildMethodReturnContextSpy).toHaveBeenCalledTimes(0);
     });
   });

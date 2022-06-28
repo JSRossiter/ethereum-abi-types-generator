@@ -367,7 +367,7 @@ export default class AbiGenerator {
    */
   private getAbiFileLocationRawName(): string {
     const basename = path.basename(this._context.abiFileLocation);
-    return basename.substr(0, basename.lastIndexOf('.')); 
+    return basename.substr(0, basename.lastIndexOf('.'));
   }
 
   /**
@@ -531,14 +531,18 @@ export default class AbiGenerator {
     name: string,
     abiInput: AbiInput
   ): string {
-    const interfaceName = `${Helpers.capitalize(name)}${Helpers.capitalize(abiInput.name)}Request`;
+    const interfacePrefix = `${Helpers.capitalize(name)}${Helpers.capitalize(
+      abiInput.name
+    )}`;
+    const interfaceName = `${interfacePrefix}Request`;
 
     let properties = '';
 
     for (let i = 0; i < abiInput.components!.length; i++) {
       const inputTsType = TypeScriptHelpers.getSolidityInputTsType(
         abiInput.components![i],
-        this._context.provider
+        this._context.provider,
+        interfacePrefix
       );
 
       properties += `${abiInput.components![i].name}: ${inputTsType};`;
@@ -547,8 +551,11 @@ export default class AbiGenerator {
       if (abiInput.components![i].components) {
         const deepInterfaceName = TypeScriptHelpers.buildInterfaceName(
           abiInput.components![i],
-          'Request'
+          'Request',
+          interfacePrefix
         );
+        const deepInterfacePrefix = deepInterfaceName.replace('Request', '');
+
         let deepProperties = '';
         for (
           let deep = 0;
@@ -557,7 +564,8 @@ export default class AbiGenerator {
         ) {
           const deepInputTsType = TypeScriptHelpers.getSolidityInputTsType(
             abiInput.components![i].components![deep],
-            this._context.provider
+            this._context.provider,
+            deepInterfacePrefix
           );
           let propertyName = abiInput.components![i].components![deep].name;
           if (propertyName.length === 0) {
@@ -568,7 +576,7 @@ export default class AbiGenerator {
 
           if (abiInput.components![i].components![deep].components) {
             this.buildTupleParametersInterface(
-              deepInterfaceName,
+              deepInterfacePrefix,
               abiInput.components![i].components![deep]
             );
           }
@@ -734,7 +742,7 @@ export default class AbiGenerator {
     // filter out any repeated interfaces
     if (
       !this._parametersAndReturnTypeInterfaces.find((c) =>
-        c.includes(`export interface ${interfaceName}`)
+        c.includes(`export interface ${interfaceName} `)
       )
     ) {
       this._parametersAndReturnTypeInterfaces.push(

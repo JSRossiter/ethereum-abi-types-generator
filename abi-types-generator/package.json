@@ -1,5 +1,5 @@
 {
-  "name": "ethereum-abi-types-generator",
+  "name": "@jsrossiter/ethereum-abi-types-generator",
   "version": "1.3.2",
   "description": "Generate types from an ethereum ABI json file.",
   "main": "dist/index.js",
