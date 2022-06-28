@@ -5,7 +5,13 @@ import {
   TransactionRequest,
   TransactionResponse,
 } from 'ethers/providers';
-import { BigNumber, BigNumberish, EventFilter, Signer } from 'ethersv5';
+import {
+  BigNumber,
+  BigNumberish,
+  EventFilter,
+  PopulatedTransaction,
+  Signer,
+} from 'ethersv5';
 import {
   AbiCoder,
   BytesLike as Arrayish,
@@ -19,9 +25,11 @@ import {
   TransactionDescription,
 } from 'ethersv5/lib/utils';
 
+type TMethodsBase = Record<string, (...args: any[]) => any>;
+
 export type EthersContractContextV5<
-  TMethods,
-  TMethodNames,
+  TMethods extends TMethodsBase,
+  TMethodNames extends string,
   TEventsContext,
   TEventType
 > = EthersContractV5<TMethods, TMethodNames, TEventsContext, TEventType> &
@@ -108,29 +116,33 @@ declare class InternalInterface<TMethodNames> {
   static isInterface(value: any): value is Interface;
 }
 
-interface ContractVersionV5<TMethodNames> {
+type ReplaceReturnType<T extends (...a: any) => any, TNewReturn> = (
+  ...a: Parameters<T>
+) => TNewReturn;
+
+interface ContractVersionV5<
+  TMethods extends TMethodsBase,
+  TMethodNames extends string
+> {
   readonly address: string;
   readonly interface: InternalInterface<TMethodNames>;
   readonly signer: Signer;
   readonly provider: Provider;
   readonly callStatic: {
     // tslint:disable-next-line: no-any
-    [name: string]: ContractFunction;
+    [name in TMethodNames]: ContractFunction;
   };
   readonly estimateGas: {
-    [name: string]: ContractFunction<BigNumber>;
+    [name in keyof TMethods]: ReplaceReturnType<
+      TMethods[name],
+      Promise<BigNumber>
+    >;
   };
   readonly populateTransaction: {
-    [name: string]: ContractFunction<{
-      to?: string;
-      from?: string;
-      nonce?: number;
-      gasLimit?: BigNumber;
-      gasPrice?: BigNumber;
-      data?: string;
-      value?: BigNumber;
-      chainId?: number;
-    }>;
+    [name in keyof TMethods]: ReplaceReturnType<
+      TMethods[name],
+      Promise<PopulatedTransaction>
+    >;
   };
   readonly addressPromise: Promise<string>;
   readonly deployTransaction: TransactionResponse;
@@ -142,8 +154,12 @@ interface ContractVersionV5<TMethodNames> {
   listeners(eventName: EventFilter | string): Listener[];
 }
 
-interface EthersContractV5<TMethods, TMethodNames, TEventsContext, TEventType>
-  extends ContractVersionV5<TMethodNames> {
+interface EthersContractV5<
+  TMethods extends TMethodsBase,
+  TMethodNames extends string,
+  TEventsContext,
+  TEventType
+> extends ContractVersionV5<TMethods, TMethodNames> {
   // readonly estimate: TMethods => Promise<BigNumber>;
   readonly functions: TMethods;
   readonly filters: TEventsContext;
