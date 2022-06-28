@@ -697,8 +697,11 @@ export interface AbiEventsContext {
       toBlock?: 'latest' | number;
       topics?: string[];
     },
-    callback?: (error: Error, event: EventData) => void
-  ): EventResponse;
+    callback?: (
+      error: Error,
+      event: EventData<Event1EventEmittedResponse>
+    ) => void
+  ): EventResponse<Event1EventEmittedResponse>;
   Event2(
     parameters: {
       filter?: { _owner?: string | string[]; _spender?: string | string[] };
@@ -706,8 +709,11 @@ export interface AbiEventsContext {
       toBlock?: 'latest' | number;
       topics?: string[];
     },
-    callback?: (error: Error, event: EventData) => void
-  ): EventResponse;
+    callback?: (
+      error: Error,
+      event: EventData<Event2EventEmittedResponse>
+    ) => void
+  ): EventResponse<Event2EventEmittedResponse>;
 }
 export type AbiMethodNames =
   | 'tupleInputOnly'

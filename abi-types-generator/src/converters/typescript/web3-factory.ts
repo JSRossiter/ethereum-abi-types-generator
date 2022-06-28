@@ -100,7 +100,8 @@ export class Web3Factory {
          }
          `;
 
-        eventPropeties += `${abiItems[i].name}(parameters: ${parameters}, callback?: (error: Error, event: EventData) => void): EventResponse;`;
+        const eventInterfaceName = `${abiItems[i].name}EventEmittedResponse`;
+        eventPropeties += `${abiItems[i].name}(parameters: ${parameters}, callback?: (error: Error, event: EventData<${eventInterfaceName}>) => void): EventResponse<${eventInterfaceName}>;`;
       }
     }
 

@@ -215,10 +215,10 @@ export interface Log {
   blockNumber: number;
 }
 
-export interface EventData {
+export interface EventData<R = any> {
   returnValues: {
     // tslint:disable-next-line: no-any
-    [key: string]: any;
+    [key: string]: R;
   };
   raw: {
     data: string;
@@ -232,6 +232,7 @@ export interface EventData {
   blockHash: string;
   blockNumber: number;
   address: string;
+  removed?: boolean;
 }
 
 export interface EventOptions {
@@ -243,8 +244,8 @@ export interface EventOptions {
   topics?: any[];
 }
 
-export interface EventResponse {
-  on(type: 'data', handler: (event: EventData) => void): EventResponse;
-  on(type: 'changed', handler: (event: EventData) => void): EventResponse;
-  on(type: 'error', handler: (error: Error) => void): EventResponse;
+export interface EventResponse<R = any> {
+  on(type: 'data', handler: (event: EventData<R>) => void): EventResponse<R>;
+  on(type: 'changed', handler: (event: EventData<R>) => void): EventResponse<R>;
+  on(type: 'error', handler: (error: Error) => void): EventResponse<R>;
 }

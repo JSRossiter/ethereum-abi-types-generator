@@ -96,7 +96,7 @@ describe('Web3Factory', () => {
               toBlock?: 'latest' | number;
               topics?: string[]
           },
-          callback?: (error: Error, event: EventData) => void): EventResponse;
+          callback?: (error: Error, event: EventData<NewExchangeEventEmittedResponse>) => void): EventResponse<NewExchangeEventEmittedResponse>;
       `)
       );
     });
