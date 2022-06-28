@@ -64,7 +64,7 @@ describe('Web3Factory', () => {
 
         export interface MethodReturnContext extends MethodPayableReturnContext {}
 
-        export type ContractContext = Web3ContractContext<
+        export type TestAbiContractContext = Web3ContractContext<
           TestAbi,
           TestAbiMethodNames,
           TestAbiEventsContext,

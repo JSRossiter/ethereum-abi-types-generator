@@ -93,7 +93,7 @@ describe('EthersFactory', () => {
                     CallOverrides } from "ethers";
            import { EthersContractContextV5 } from "ethereum-abi-types-generator";
 
-          export type ContractContext = EthersContractContextV5<
+          export type TestAbiContractContext = EthersContractContextV5<
             TestAbi,
             TestAbiMethodNames,
             TestAbiEventsContext,

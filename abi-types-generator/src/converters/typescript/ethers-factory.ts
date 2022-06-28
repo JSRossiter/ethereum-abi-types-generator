@@ -100,7 +100,7 @@ export class EthersFactory {
                     CallOverrides } from "ethers";
            import { EthersContractContextV5 } from "ethereum-abi-types-generator";
 
-           export type ContractContext = EthersContractContextV5<
+           export type ${abiName}ContractContext = EthersContractContextV5<
             ${abiName},
             ${abiName}MethodNames,
             ${abiName}EventsContext,

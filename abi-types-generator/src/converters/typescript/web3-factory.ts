@@ -59,7 +59,7 @@ export class Web3Factory {
 
     export interface MethodReturnContext extends MethodPayableReturnContext {}
 
-    export type ContractContext = Web3ContractContext<
+    export type ${abiName}ContractContext = Web3ContractContext<
       ${abiName},
       ${abiName}MethodNames,
       ${abiName}EventsContext,

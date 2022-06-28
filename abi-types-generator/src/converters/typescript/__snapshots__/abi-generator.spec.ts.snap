@@ -340,7 +340,7 @@ exports[`AbiGenerator Ethers v5 round trip 1`] = `
 } from 'ethers';
 import { EthersContractContextV5 } from 'ethereum-abi-types-generator';
 
-export type ContractContext = EthersContractContextV5<
+export type AbiContractContext = EthersContractContextV5<
   Abi,
   AbiMethodNames,
   AbiEventsContext,
@@ -678,7 +678,7 @@ export interface MethodConstantReturnContext<TCallReturn> {
 
 export interface MethodReturnContext extends MethodPayableReturnContext {}
 
-export type ContractContext = Web3ContractContext<
+export type AbiContractContext = Web3ContractContext<
   Abi,
   AbiMethodNames,
   AbiEventsContext,
