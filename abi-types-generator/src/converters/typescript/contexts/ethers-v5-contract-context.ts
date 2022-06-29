@@ -123,7 +123,9 @@ type ReplaceReturnType<T extends (...a: any) => any, TNewReturn> = (
 ) => TNewReturn;
 
 interface ContractVersionV5<
-  TMethods extends TMethodsBase,
+  TMethods extends {
+    [key in TMethodNames]: (...args: any[]) => any;
+  },
   TMethodNames extends string
 > {
   readonly address: string;
@@ -157,7 +159,9 @@ interface ContractVersionV5<
 }
 
 interface EthersContractV5<
-  TMethods extends TMethodsBase,
+  TMethods extends {
+    [key in TMethodNames]: (...args: any[]) => any;
+  },
   TMethodNames extends string,
   TEventsContext,
   TEventType
