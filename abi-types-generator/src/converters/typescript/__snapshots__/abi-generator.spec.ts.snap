@@ -51,10 +51,11 @@ export interface ContractCallOverrides {
    */
   gasLimit?: number;
 }
-export type AbiEvents = 'Event1' | 'Event2';
+export type AbiEvents = 'Event1' | 'Event2' | 'OrderFulfilled';
 export interface AbiEventsContext {
   Event1(...parameters: any): EventFilter;
   Event2(...parameters: any): EventFilter;
+  OrderFulfilled(...parameters: any): EventFilter;
 }
 export type AbiMethodNames =
   | 'tupleInputOnly'
@@ -189,6 +190,36 @@ export interface DeeplyNestedStructsCriteriaResolversRequest {
   index: BigNumberish;
   identifier: BigNumberish;
   criteriaProof: Arrayish[];
+}
+export interface OrderFulfilledEventOfferResponse {
+  itemType: number;
+  0: number;
+  token: string;
+  1: string;
+  identifier: BigNumber;
+  2: BigNumber;
+  amount: BigNumber;
+  3: BigNumber;
+}
+export interface OrderFulfilledEventConsiderationResponse {
+  itemType: number;
+  0: number;
+  token: string;
+  1: string;
+  identifier: BigNumber;
+  2: BigNumber;
+  amount: BigNumber;
+  3: BigNumber;
+  recipient: string;
+  4: string;
+}
+export interface OrderFulfilledEventEmittedResponse {
+  orderHash: Arrayish;
+  offerer: string;
+  zone: string;
+  recipient: string;
+  offer: OrderFulfilledEventOfferResponse[];
+  consideration: OrderFulfilledEventConsiderationResponse[];
 }
 export interface Abi {
   /**
@@ -347,10 +378,11 @@ export type AbiContractContext = EthersContractContextV5<
   AbiEvents
 >;
 
-export type AbiEvents = 'Event1' | 'Event2';
+export type AbiEvents = 'Event1' | 'Event2' | 'OrderFulfilled';
 export interface AbiEventsContext {
   Event1(...parameters: any): EventFilter;
   Event2(...parameters: any): EventFilter;
+  OrderFulfilled(...parameters: any): EventFilter;
 }
 export type AbiMethodNames =
   | 'tupleInputOnly'
@@ -485,6 +517,36 @@ export interface DeeplyNestedStructsCriteriaResolversRequest {
   index: BigNumberish;
   identifier: BigNumberish;
   criteriaProof: Arrayish[];
+}
+export interface OrderFulfilledEventOfferResponse {
+  itemType: number;
+  0: number;
+  token: string;
+  1: string;
+  identifier: BigNumber;
+  2: BigNumber;
+  amount: BigNumber;
+  3: BigNumber;
+}
+export interface OrderFulfilledEventConsiderationResponse {
+  itemType: number;
+  0: number;
+  token: string;
+  1: string;
+  identifier: BigNumber;
+  2: BigNumber;
+  amount: BigNumber;
+  3: BigNumber;
+  recipient: string;
+  4: string;
+}
+export interface OrderFulfilledEventEmittedResponse {
+  orderHash: Arrayish;
+  offerer: string;
+  zone: string;
+  recipient: string;
+  offer: OrderFulfilledEventOfferResponse[];
+  consideration: OrderFulfilledEventConsiderationResponse[];
 }
 export interface Abi {
   /**
@@ -684,7 +746,7 @@ export type AbiContractContext = Web3ContractContext<
   AbiEventsContext,
   AbiEvents
 >;
-export type AbiEvents = 'Event1' | 'Event2';
+export type AbiEvents = 'Event1' | 'Event2' | 'OrderFulfilled';
 export interface AbiEventsContext {
   Event1(
     parameters: {
@@ -714,6 +776,18 @@ export interface AbiEventsContext {
       event: EventData<Event2EventEmittedResponse>
     ) => void
   ): EventResponse<Event2EventEmittedResponse>;
+  OrderFulfilled(
+    parameters: {
+      filter?: { offerer?: string | string[]; zone?: string | string[] };
+      fromBlock?: number;
+      toBlock?: 'latest' | number;
+      topics?: string[];
+    },
+    callback?: (
+      error: Error,
+      event: EventData<OrderFulfilledEventEmittedResponse>
+    ) => void
+  ): EventResponse<OrderFulfilledEventEmittedResponse>;
 }
 export type AbiMethodNames =
   | 'tupleInputOnly'
@@ -813,6 +887,27 @@ export interface DeeplyNestedStructsCriteriaResolversRequest {
   index: string;
   identifier: string;
   criteriaProof: string | number[][];
+}
+export interface OrderFulfilledEventOfferResponse {
+  itemType: string;
+  token: string;
+  identifier: string;
+  amount: string;
+}
+export interface OrderFulfilledEventConsiderationResponse {
+  itemType: string;
+  token: string;
+  identifier: string;
+  amount: string;
+  recipient: string;
+}
+export interface OrderFulfilledEventEmittedResponse {
+  orderHash: string | number[];
+  offerer: string;
+  zone: string;
+  recipient: string;
+  offer: OrderFulfilledEventOfferResponse[];
+  consideration: OrderFulfilledEventConsiderationResponse[];
 }
 export interface Abi {
   /**

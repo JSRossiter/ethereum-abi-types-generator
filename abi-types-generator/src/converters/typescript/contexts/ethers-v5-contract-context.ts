@@ -27,7 +27,9 @@ import {
   TransactionDescription,
 } from 'ethersv5/lib/utils';
 
-type TMethodsBase = Record<string, (...args: any[]) => any>;
+type TMethodsBase = {
+  [key: string]: (...args: any[]) => any;
+};
 
 export type EthersContractContextV5<
   TMethods extends TMethodsBase,
