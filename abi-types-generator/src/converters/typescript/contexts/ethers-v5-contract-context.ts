@@ -27,12 +27,10 @@ import {
   TransactionDescription,
 } from 'ethersv5/lib/utils';
 
-type TMethodsBase = {
-  [key: string]: (...args: any[]) => any;
-};
-
 export type EthersContractContextV5<
-  TMethods extends TMethodsBase,
+  TMethods extends {
+    [key in TMethodNames]: (...args: any[]) => any;
+  },
   TMethodNames extends string,
   TEventsContext,
   TEventType
