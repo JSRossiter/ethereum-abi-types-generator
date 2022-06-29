@@ -151,7 +151,8 @@ export default class TypeScriptHelpers {
    */
   public static getSolidityOutputTsType(
     abiOutput: AbiOutput,
-    provider: Provider
+    provider: Provider,
+    interfacePrefix?: string
   ): string {
     // any bespoke provider output type logic
     switch (provider) {
@@ -197,7 +198,11 @@ export default class TypeScriptHelpers {
     }
 
     if (abiOutput.type.includes(SolidityType.tuple)) {
-      const interfaceName = this.buildInterfaceName(abiOutput);
+      const interfaceName = this.buildInterfaceName(
+        abiOutput,
+        'Response',
+        interfacePrefix
+      );
       if (abiOutput.type.includes('[')) {
         return `${interfaceName}[]`;
       }
