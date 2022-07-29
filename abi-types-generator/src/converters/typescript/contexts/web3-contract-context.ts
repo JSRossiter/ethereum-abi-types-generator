@@ -216,10 +216,8 @@ export interface Log {
 }
 
 export interface EventData<R = any> {
-  returnValues: {
-    // tslint:disable-next-line: no-any
-    [key: string]: R;
-  };
+  // tslint:disable-next-line: no-any
+  returnValues: R;
   raw: {
     data: string;
     topics: string[];
